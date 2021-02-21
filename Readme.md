@@ -49,6 +49,35 @@ knn and smote KNeighborsClassifier(n_jobs=4, n_neighbors=10, weights='distance')
 
 
 
+## nn
+
+激活函数 relu
+
+共4层神经网络
+
+神经元分别为512 256 128 64
+
+
+
+损失函数使用交叉熵损失函数
+
+使用随机梯度下降法
+
+参数为lr = 0.01,momentum=0.5
+
+batch_size = 100
+
+
+
+经过255个epoch
+
+loss降到0.000
+
+测试集上识别率为0.96850
+
+
+
 ## cnn
 
 还在做
+
