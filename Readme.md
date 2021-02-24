@@ -77,7 +77,68 @@ loss降到0.000
 
 
 
-## cnn
+```python
+class Net(torch.nn.Module):
+    def __init__(self):
+        super(Net,self).__init__()
+        self.l1 = torch.nn.Linear(784,512)
+        self.l2 = torch.nn.Linear(512,256)
+        self.l3 = torch.nn.Linear(256,128)
+        self.l4 = torch.nn.Linear(128,64)
+        self.l5 = torch.nn.Linear(64,10)
+        
+    def forward(self,x):
+        x = x.view(-1,784)
+        x = F.relu(self.l1(x))
+        x = F.relu(self.l2(x))
+        x = F.relu(self.l3(x))
+        x = F.relu(self.l4(x))
+        return self.l5(x)
+```
 
-还在做
+
+
+## cnn_0
+
+```python
+class Net(torch.nn.Module):
+    def __init__(self):
+        super(Net,self).__init__()
+        self.conv1 = torch.nn.Conv2d(1,10,kernel_size = 5)
+        self.conv2 = torch.nn.Conv2d(10,20,kernel_size = 5)
+        self.pooing = torch.nn.MaxPool2d(2)
+        self.fc = torch.nn.Linear(320,10)
+        
+    def forward(self,x):
+        batch_size = x.size(0)
+        x = self.pooling(F.relu(self.conv1(x)))
+        x = self.pooling(F.relu(self.conv2(x)))
+        x = x.view(batch_size,-1)
+        x = self.fc(x)
+        return x
+
+```
+
+loss: 0.051
+Accuracy on test set: 98 %
+
+0.97814
+
+
+
+loss: 0.012
+Accuracy on test set: 98 %
+
+0.98207
+
+
+
+loss: 0.002
+Accuracy on test set: 98 %
+
+0.98225
+
+
+
+## cnn_1
 
