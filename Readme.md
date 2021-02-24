@@ -119,6 +119,8 @@ class Net(torch.nn.Module):
 
 ```
 
+卷积-relu-池化-卷积-relu-池化-全连接
+
 loss: 0.051
 Accuracy on test set: 98 %
 
@@ -141,4 +143,37 @@ Accuracy on test set: 98 %
 
 
 ## cnn_1
+
+```python
+class Net(torch.nn.Module):
+    def __init__(self):
+        super(Net,self).__init__()
+        self.conv1 = torch.nn.Conv2d(1,10,kernel_size = 5)
+        self.conv2 = torch.nn.Conv2d(10,20,kernel_size = 3)
+        self.conv3 = torch.nn.Conv2d(20,30,kernel_size = 2)
+        self.pooling = torch.nn.MaxPool2d(2)
+        self.fc1 = torch.nn.Linear(120,64)
+        self.fc2 = torch.nn.Linear(64,32)
+        self.fc3 = torch.nn.Linear(32,10)
+        
+    def forward(self,x):
+        batch_size = x.size(0)
+#         x为张量，张量.size 取出维度  取0  得到就是样本数量 n 1 28 28
+        x = x.view(batch_size,1,28,28)
+        x = F.relu(self.pooling(self.conv1(x)))
+        x = F.relu(self.pooling(self.conv2(x)))
+        x = F.relu(self.pooling(self.conv3(x)))
+        x = x.view(batch_size,-1)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+```
+
+卷积-池化-relu-卷积-池化-relu-卷积-池化-relu-全连接-全连接-全连接
+
+loss: 0.005
+Accuracy on test set: 98 %
+
+
 
